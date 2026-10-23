@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Zeynep Caysar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Hanken+Grotesk:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one narrow column, four views (about / projects / poems / cats) switched by a quiet top nav. */
+:root {
+  --bg: #eef0f3;
+  --surface: #f8f9fb;
+  --fg: #1a1f2b;
+  --muted: #5d6576;
+  --line: #d3d8e0;
+  --accent: #6a2d5c;
+  --f-display: "Gloock", Georgia, serif;
+  --f-body: "Hanken Grotesk", system-ui, sans-serif;
+  --f-verse: "Newsreader", Georgia, serif;
+  --f-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #13161d; --surface: #1a1e27; --fg: #e5e8ee; --muted: #9aa2b2; --line: #2c323e; --accent: #d9a3cb; color-scheme: dark } }
+:root[data-theme="dark"] { --bg: #13161d; --surface: #1a1e27; --fg: #e5e8ee; --muted: #9aa2b2; --line: #2c323e; --accent: #d9a3cb; color-scheme: dark }
+
+body { background: var(--bg); color: var(--fg); font: 400 1rem/1.6 var(--f-body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.wrap { max-width: 68rem; margin: 0 auto; padding-block: 2.5rem 5rem; }
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: .75rem 2rem; border-bottom: 1px solid var(--line); padding-bottom: 1rem; }
+.mark { font: 1.4rem/1 var(--f-display); color: var(--fg); text-decoration: none; }
+nav { display: flex; gap: 1.5rem; }
+nav a { font: 500 .78rem/1 var(--f-mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); text-decoration: none; padding-block: .3rem; border-bottom: 1px solid transparent; }
+nav a[aria-current="page"] { color: var(--fg); border-color: var(--accent); }
+
+h1 { font: 400 clamp(2.4rem, 7vw, 3.6rem)/1.05 var(--f-display); margin: 3rem 0 1.25rem; text-wrap: balance; letter-spacing: -.01em; }
+h1 em { font-style: normal; color: var(--accent); }
+h2 { font: 400 1.6rem/1.2 var(--f-display); margin: 0; text-wrap: balance; }
+.lede { font-size: 1.25rem; max-width: 48rem; color: var(--fg); }
+.label { font: 500 .72rem/1 var(--f-mono); text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
+p { max-width: 65ch; }
+
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: 1.25rem 2rem; margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+.facts div { display: flex; flex-direction: column; gap: .4rem; }
+.contacts { display: flex; flex-wrap: wrap; gap: .3rem 1rem; }
+.contacts span { color: var(--fg); }
+
+.view-head { margin: 3rem 0 2rem; display: flex; flex-direction: column; gap: .6rem; }
+.view-head h1 { margin: 0; }
+
+.projects { display: flex; flex-direction: column; }
+.project { display: grid; grid-template-columns: 6.5rem 1fr; gap: 1.5rem; padding-block: 1.75rem; border-top: 1px solid var(--line); }
+.project > * { min-width: 0; }
+.project .when { font: .8rem/1.5 var(--f-mono); color: var(--muted); padding-top: .35rem; }
+.project p { margin: .6rem 0 .9rem; color: var(--muted); }
+.status { display: inline-block; margin-left: .5rem; font: 500 .68rem/1 var(--f-mono); text-transform: uppercase; letter-spacing: .08em; padding: .3rem .45rem; border: 1px solid var(--accent); color: var(--accent); border-radius: 3px; vertical-align: .35em; }
+.tags { display: flex; flex-wrap: wrap; gap: .4rem; list-style: none; padding: 0; margin: 0; }
+.tags li { font: .74rem/1 var(--f-mono); padding: .35rem .5rem; background: var(--surface); border: 1px solid var(--line); border-radius: 3px; color: var(--muted); }
+
+.poems { display: flex; flex-direction: column; gap: 3.5rem; }
+.poem { display: grid; grid-template-columns: 1fr; gap: .9rem; }
+.poem h2 { font-size: 1.5rem; }
+.poem .by { font: .8rem/1.4 var(--f-mono); color: var(--muted); }
+.verse { font: 400 1.15rem/1.65 var(--f-verse); white-space: pre-line; margin: .4rem 0 0; padding-left: 1.25rem; border-left: 1px solid var(--line); max-width: 40rem; }
+.note { font-style: italic; color: var(--muted); font-family: var(--f-verse); font-size: 1.05rem; }
+
+footer { margin-top: 4rem; padding-top: 1rem; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 1rem 2rem; justify-content: space-between; }
+footer span { font: .78rem/1.4 var(--f-mono); color: var(--muted); }
+
+.project h2 a { color: inherit; text-decoration: none; }
+.links { display: flex; gap: 1.25rem; margin-top: 1rem; font: 500 .8rem/1 var(--f-mono); }
+.project.draft { border: 1px dashed var(--line); border-radius: 4px; padding-inline: 1.25rem; margin-top: 1.5rem; color: var(--muted); }
+.project.draft h2 { color: var(--muted); }
+.shelf { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr)); column-gap: 3rem; }
+.shelf li { display: flex; flex-direction: column; gap: .25rem; padding-block: 1rem; border-top: 1px solid var(--line); min-width: 0; }
+.shelf .t { font: 400 1.2rem/1.35 var(--f-verse); color: var(--fg); }
+.shelf a.t { text-decoration: none; }
+.shelf a.t:hover { color: var(--accent); }
+.shelf a.t::after { content: " ↗"; font-size: .8em; color: var(--accent); }
+.shelf .p { font: .78rem/1.4 var(--f-mono); color: var(--muted); }
+
+.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: 1.25rem; }
+.gallery figure { margin: 0; display: flex; flex-direction: column; gap: .5rem; min-width: 0; }
+.gallery button { padding: 0; border: 0; background: var(--surface); cursor: zoom-in; border-radius: 4px; overflow: hidden; aspect-ratio: 4 / 5; max-width: 100%; }
+.gallery img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s ease; }
+.gallery button:hover img { transform: scale(1.03); }
+.gallery figcaption { font: .78rem/1.4 var(--f-mono); color: var(--muted); }
+.empty { border: 1px dashed var(--line); border-radius: 4px; padding: 2.5rem 1.5rem; color: var(--muted); max-width: 40rem; }
+.empty code { font-family: var(--f-mono); font-size: .85em; color: var(--fg); }
+.lightbox { position: fixed; inset: 0; z-index: 20; background: rgba(10, 12, 16, .9); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .75rem;
+  padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); cursor: zoom-out; }
+.lightbox img { max-width: 100%; max-height: 85vh; object-fit: contain; border-radius: 3px; }
+.lightbox p { font: .8rem/1.4 var(--f-mono); color: #d8dce4; margin: 0; text-align: center; }
+@media (prefers-reduced-motion: reduce) { .gallery img { transition: none; } }
+
+@media (max-width: 520px) {
+  .project { grid-template-columns: 1fr; gap: .25rem; }
+  nav { gap: 1.1rem; }
+}
+</style>
+<style>html{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <a class="mark" href="#about">Zeynep Çaysar</a>
+    <nav aria-label="Sections">
+      <a href="#about" data-view="about">About</a>
+      <a href="#projects" data-view="projects">Projects</a>
+      <a href="#poems" data-view="poems">Poems</a>
+      <a href="#cats" data-view="cats">Cats</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="v-about" data-section="about">
+      <h1>About me</h1>
+      <p class="lede">I'm an MSc student in Information Systems at the University of Zurich, with a minor in Data Science.</p>
+      <p>In this webpage, you can see my portfolio of my academic and personal projects. Some poems that I like to keep and some other things.</p>
+      <div class="facts">
+        <div><span class="label">Studying</span><span>MSc Informatics, UZH</span></div>
+        <div><span class="label">Working on</span><span>To be confirmed</span></div>
+        <div><span class="label">Into</span><span>Machine learning, data science and analysis, healthcare, music</span></div>
+        <div><span class="label">Currently in</span><span>Zurich</span></div>
+        <div><span class="label">Contacts</span><span class="contacts"><span>zeynep.caysar@uzh.ch</span><span>zeynepcaysar@gmail.com</span><a href="https://www.linkedin.com/in/zeynepcaysar/" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/zeynepcaysar" target="_blank" rel="noopener">GitHub</a></span></div>
+      </div>
+    </section>
+
+    <section id="v-projects" data-section="projects" hidden>
+      <div class="view-head">
+        <h1>Projects</h1>
+      </div>
+      <div class="projects">
+        <article class="project">
+          <div class="when">2026<br>Master's project</div>
+          <div>
+            <h2>RareSim</h2>
+            <p>A phenotype-based retrieval system for rare diseases. Given a patient's symptoms as HPO terms, RareSim ranks likely diagnoses by combining ontology-based, set-based, transformer and LLM similarity methods. It was evaluated on ten benchmark datasets and compared with established tools such as PhenoBrain, LIRICAL and Phenomizer.</p>
+            <ul class="tags"><li>Python</li><li>PyTorch / Hugging Face</li><li>SapBERT</li><li>Mistral-7B</li><li>FastAPI</li><li>Vue 3</li><li>HPO · ORDO · MONDO</li><li>GitLab CI</li></ul>
+            <div class="links"><a href="https://github.com/Alizzie/RareSim-Master-Project-" target="_blank" rel="noopener">GitHub ↗</a></div>
+          </div>
+        </article>
+
+        <!-- TEMPLATE: copy this block for each new project and fill it in
+        <article class="project">
+          <div class="when">YEAR<br>TYPE (e.g. Course project)</div>
+          <div>
+            <h2>Project name</h2>
+            <p>One or two sentences: what it does, what problem it solves, and what you did.</p>
+            <ul class="tags"><li>Tech 1</li><li>Tech 2</li><li>Tech 3</li></ul>
+            <div class="links"><a href="https://github.com/YOUR-USER/REPO" target="_blank" rel="noopener">GitHub ↗</a></div>
+          </div>
+        </article>
+        -->
+
+        <article class="project draft">
+          <div class="when">Year<br>Type</div>
+          <div>
+            <h2>Next project</h2>
+            <p>Draft: what it does, what problem it solves, and what your part was. Keep it to two or three sentences.</p>
+            <ul class="tags"><li>Technology</li><li>Technology</li></ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="v-poems" data-section="poems" hidden>
+      <div class="view-head">
+        <span class="label">A small shelf</span>
+        <h1>Poems I keep</h1>
+      </div>
+      <ul class="shelf" id="shelf"></ul>
+    </section>
+    <section id="v-cats" data-section="cats" hidden>
+      <div class="view-head">
+        <span class="label">Mostly in Moda and some other places...</span>
+        <h1>Cats photographed by my dad</h1>
+      </div>
+      <div class="gallery" id="gallery"></div>
+      <div class="empty" id="cats-empty" hidden>No photos yet. Put the pictures in a <code>cats</code> folder next to <code>index.html</code> and list them in <code>CATS</code> at the bottom of the file.</div>
+    </section>
+  </main>
+
+  <footer>
+    <span>© 2026 Zeynep Çaysar</span>
+  </footer>
+</div>
+
+<script>
+/* ===== POEMS =====
+   To link a poem, paste its page address between the quotes after url.
+   Leave url empty ("") and the title shows without a link.
+   Add a poem: copy one line and change it. */
+var POEMS = [
+  { title: "Remzi Bey'e Şiirler", poet: "Muzaffer Tayyip Uslu", url: "https://www.siirparki.com/mtuslu16.html" },
+  { title: "Anlatamıyorum", poet: "Orhan Veli", url: "" },
+  { title: "Güzel Havalar", poet: "Orhan Veli", url: "" },
+  { title: "Kitâbe-i Seng-i Mezar", poet: "Orhan Veli", url: "" },
+  { title: "Dalgacı Mahmut", poet: "Orhan Veli", url: "" },
+  { title: "Yaşadıklarımdan Öğrendiğim Bir Şey Var", poet: "Ataol Behramoğlu", url: "" },
+  { title: "Yaşamaya Dair", poet: "Nâzım Hikmet", url: "" },
+  { title: "Zeynep Beni Bekle", poet: "Attilâ İlhan", url: "" },
+  { title: "Dönme Dolap", poet: "Behçet Necatigil", url: "" },
+  { title: "Hayatta Ben En Çok Babamı Sevdim", poet: "Can Yücel", url: "" },
+  { title: "Göğe Bakma Durağı", poet: "Turgut Uyar", url: "" },
+  { title: "Deniz", poet: "Arif Damar", url: "" },
+  { title: "Kent", poet: "Kavafis", url: "" },
+  { title: "Küs Değiliz", poet: "Amado Nervo", url: "https://x.com/fkadev/status/783053365815238658" },
+  { title: "Les Essais'den Dostluk Denemesi", poet: "Montaigne", url: "" },
+  { title: "Zümrüdüanka", poet: "Birhan Keskin", url: "https://www.siirparki.com/bkeskin14.html" },
+  { title: "Sevdiğim Kadın İsimleri Gibi: Zeynep", poet: "Akgün Akova", url: "https://zeynepnazan.wordpress.com/2014/09/07/zeynep-akgun-akova/" }
+];
+(function () {
+  var ul = document.getElementById("shelf");
+  POEMS.forEach(function (p) {
+    var li = document.createElement("li");
+    var t = document.createElement(p.url ? "a" : "span");
+    t.className = "t";
+    t.textContent = p.title;
+    if (p.url) { t.href = p.url; t.target = "_blank"; t.rel = "noopener"; }
+    var by = document.createElement("span");
+    by.className = "p";
+    by.textContent = p.poet;
+    li.append(t, by);
+    ul.appendChild(li);
+  });
+})();
+</script>
+<div class="lightbox" id="lightbox" hidden><img id="lb-img" alt=""><p id="lb-cap"></p></div>
+
+<script>
+/* ===== CATS =====
+   1. Put the photos in a folder called "cats" next to index.html.
+   2. Add one line per photo below. The caption is optional ("").
+   Photos appear in the order listed. */
+var CATS = [
+  { src: "cats/WhatsApp Image 2026-09-27 at 15.40.54.jpeg", caption: "Moda, Istanbul · 27 Sep 2026" },
+  { src: "cats/WhatsApp Image 2026-09-22 at 13.05.31.jpeg", caption: "Moda, Istanbul · 22 Sep 2026" },
+  { src: "cats/WhatsApp Image 2026-09-21 at 12.09.47.jpeg", caption: "Moda, Istanbul · 21 Sep 2026" },
+  { src: "cats/WhatsApp Image 2026-09-15 at 16.39.39.jpeg", caption: "Eyüp, Istanbul · 15 Sep 2026" },
+  { src: "cats/PHOTO-2026-05-29-18-08-31.jpg", caption: "Moda, Istanbul · 29 May 2026" },
+  { src: "cats/PHOTO-2026-05-21-14-36-39.jpg", caption: "Moda, Istanbul · 21 May 2026" },
+  { src: "cats/PHOTO-2026-05-05-11-17-19.jpg", caption: "Moda, Istanbul · 5 May 2026" },
+  { src: "cats/PHOTO-2026-04-16-17-22-18.jpg", caption: "Zurich · 16 Apr 2026" },
+  { src: "cats/PHOTO-2026-03-01-15-57-44.jpg", caption: "Moda, Istanbul · 1 Mar 2026" },
+  { src: "cats/PHOTO-2025-12-24-19-55-20.jpg", caption: "Beyoglu, Istanbul · 24 Dec 2025" },
+  { src: "cats/PHOTO-2025-12-05-20-54-28.jpg", caption: "Moda, Istanbul · 5 Dec 2025" },
+  { src: "cats/PHOTO-2025-12-05-20-52-57.jpg", caption: "Moda, Istanbul · 5 Dec 2025" },
+  { src: "cats/PHOTO-2025-12-05-20-52-20.jpg", caption: "Moda, Istanbul · 5 Dec 2025" },
+  { src: "cats/PHOTO-2025-11-19-13-44-29.jpg", caption: "Moda, Istanbul · 19 Nov 2025" },
+  { src: "cats/PHOTO-2025-06-02-17-08-37.jpg", caption: "Moda, Istanbul · 2 Jun 2025" },
+  { src: "cats/PHOTO-2025-01-18-15-54-48.jpg", caption: "Moda, Istanbul · 18 Jan 2025" },
+  { src: "cats/PHOTO-2025-01-03-13-36-32.jpg", caption: "Moda, Istanbul · 3 Jan 2025" },
+  { src: "cats/PHOTO-2024-11-28-19-57-56.jpg", caption: "Moda, Istanbul · 28 Nov 2024" },
+  { src: "cats/PHOTO-2023-03-31-15-02-41.jpg", caption: "Moda, Istanbul · 31 Mar 2023" },
+  { src: "cats/PHOTO-2023-02-23-16-22-12.jpg", caption: "Moda, Istanbul · 23 Feb 2023" },
+];
+(function () {
+  var g = document.getElementById("gallery");
+  var lb = document.getElementById("lightbox"), lbImg = document.getElementById("lb-img"), lbCap = document.getElementById("lb-cap");
+  if (!CATS.length) { document.getElementById("cats-empty").hidden = false; return; }
+  CATS.forEach(function (c) {
+    var fig = document.createElement("figure");
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.setAttribute("aria-label", "Enlarge photo" + (c.caption ? ": " + c.caption : ""));
+    var img = document.createElement("img");
+    img.src = c.src; img.alt = c.caption || "Cat photo"; img.loading = "lazy";
+    btn.appendChild(img);
+    btn.addEventListener("click", function () {
+      lbImg.src = c.src; lbImg.alt = img.alt; lbCap.textContent = c.caption || ""; lb.hidden = false;
+    });
+    fig.appendChild(btn);
+    if (c.caption) { var cap = document.createElement("figcaption"); cap.textContent = c.caption; fig.appendChild(cap); }
+    g.appendChild(fig);
+  });
+  lb.addEventListener("click", function () { lb.hidden = true; });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") lb.hidden = true; });
+})();
+</script>
+<script>
+(function () {
+  var views = ["about", "projects", "poems", "cats"];
+  function show() {
+    var v = (location.hash || "").slice(1);
+    if (views.indexOf(v) < 0) v = "about";
+    document.querySelectorAll("[data-section]").forEach(function (s) { s.hidden = s.dataset.section !== v; });
+    document.querySelectorAll("nav a").forEach(function (a) {
+      if (a.dataset.view === v) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
+    });
+  }
+  window.addEventListener("hashchange", function () { show(); window.scrollTo(0, 0); });
+  show();
+})();
+</script>
+</body>
+</html>

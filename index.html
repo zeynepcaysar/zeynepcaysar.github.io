@@ -7,7 +7,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Hanken+Grotesk:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: one narrow column, four views (about / projects / poems / cats) switched by a quiet top nav. */
 :root {
   --bg: #eef0f3;
   --surface: #f8f9fb;
@@ -145,23 +144,12 @@ footer span { font: .78rem/1.4 var(--f-mono); color: var(--muted); }
           </div>
         </article>
 
-        <!-- TEMPLATE: copy this block for each new project and fill it in
-        <article class="project">
-          <div class="when">YEAR<br>TYPE (e.g. Course project)</div>
-          <div>
-            <h2>Project name</h2>
-            <p>One or two sentences: what it does, what problem it solves, and what you did.</p>
-            <ul class="tags"><li>Tech 1</li><li>Tech 2</li><li>Tech 3</li></ul>
-            <div class="links"><a href="https://github.com/YOUR-USER/REPO" target="_blank" rel="noopener">GitHub ↗</a></div>
-          </div>
-        </article>
-        -->
 
         <article class="project draft">
           <div class="when">Year<br>Type</div>
           <div>
             <h2>Next project</h2>
-            <p>Draft: what it does, what problem it solves, and what your part was. Keep it to two or three sentences.</p>
+            <p>Draft: what it does, what problem it solves etc.</p>
             <ul class="tags"><li>Technology</li><li>Technology</li></ul>
           </div>
         </article>
@@ -191,10 +179,6 @@ footer span { font: .78rem/1.4 var(--f-mono); color: var(--muted); }
 </div>
 
 <script>
-/* ===== POEMS =====
-   To link a poem, paste its page address between the quotes after url.
-   Leave url empty ("") and the title shows without a link.
-   Add a poem: copy one line and change it. */
 var POEMS = [
   { title: "Remzi Bey'e Şiirler", poet: "Muzaffer Tayyip Uslu", url: "https://www.siirparki.com/mtuslu16.html" },
   { title: "Anlatamıyorum", poet: "Orhan Veli", url: "" },
@@ -233,10 +217,6 @@ var POEMS = [
 <div class="lightbox" id="lightbox" hidden><img id="lb-img" alt=""><p id="lb-cap"></p></div>
 
 <script>
-/* ===== CATS =====
-   1. Put the photos in a folder called "cats" next to index.html.
-   2. Add one line per photo below. The caption is optional ("").
-   Photos appear in the order listed. */
 var CATS = [
   { src: "cats/WhatsApp Image 2026-09-27 at 15.40.54.jpeg", caption: "Moda, Istanbul · 27 Sep 2026" },
   { src: "cats/WhatsApp Image 2026-09-22 at 13.05.31.jpeg", caption: "Moda, Istanbul · 22 Sep 2026" },
